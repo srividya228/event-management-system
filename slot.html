@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Booking</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: url('https://img.freepik.com/free-photo/optical-fiber-background_23-2149301532.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h1 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #custom-time {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Event Booking</h1>
+  <form id="bookingForm">
+    <label for="event">Choose an Event:</label>
+    <select id="event">
+      <option value="Marriage">Marriage</option>
+      <option value="Corporate">Corporate</option>
+      <option value="Catering">Catering</option>
+      <option value="Music concert">Music Concert</option>
+    </select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" required>
+
+    <label for="time">Select Time Slot:</label>
+    <select id="time">
+      <option value="10am-12pm">10 AM - 12 PM</option>
+      <option value="12pm-2pm">12 PM - 2 PM</option>
+      <option value="2pm-4pm">2 PM - 4 PM</option>
+      <option value="4pm-6pm">4 PM - 6 PM</option>
+      <option value="custom">Enter Custom Time</option>
+    </select>
+
+    <input type="text" id="custom-time" placeholder="Enter your preferred time" disabled>
+    
+    <label for="Location">Location:</label>
+    <input type="text" id="Location" required>
+
+    <button type="submit">Book Now</button>
+  </form>
+  <p id="message"></p>
+</div>
+
+<script>
+  const timeSelect = document.getElementById('time');
+  const customTimeInput = document.getElementById('custom-time');
+
+  // Show/hide custom time input based on selection
+  timeSelect.addEventListener('change', function () {
+    if (this.value === 'custom') {
+      customTimeInput.style.display = 'block';
+      customTimeInput.disabled = false;
+      customTimeInput.required = true;
+    } else {
+      customTimeInput.style.display = 'none';
+      customTimeInput.disabled = true;
+      customTimeInput.required = false;
+      customTimeInput.value = ''; // Reset value if user switches back
+    }
+  });
+
+  document.getElementById('bookingForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    
+    const selectedEvent = document.getElementById('event').value;
+    const selectedDate = document.getElementById('date').value;
+    const selectedTime = timeSelect.value === 'custom' ? customTimeInput.value.trim() : timeSelect.value;
+
+    // Ensure custom time is entered if selected
+    if (timeSelect.value === 'custom' && selectedTime === '') {
+      alert("❌ Please enter a valid custom time.");
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5001/api/book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ event: selectedEvent, date: selectedDate, time: selectedTime })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(`✅ Booking confirmed for ${selectedEvent} on ${selectedDate} at ${selectedTime}!`);
+      } else {
+        alert(`❌ Booking failed: ${data.error}`);
+      }
+    } catch (error) {
+      alert("❌ Server error. Please try again.");
+    }
+  });
+</script>
+
+</body>
+</html>

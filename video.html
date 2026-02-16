@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4 Video</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            background-color: #444;
+        }
+
+        header {
+            background-color: #6a4caf;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            display: block;
+            transition: background 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: black;
+            top: 40px;
+            left: 0;
+            min-width: 200px;
+            padding: 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .dropdown-menu li a {
+            color: white;
+            padding: 12px 20px;
+            display: block;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #5a3b9e;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .content {
+            padding-top: 120px;
+            text-align: center;
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SV Event Management</div>
+        <nav>
+            <ul>
+                <li><a href="nav.html">Home</a></li>
+                <li><a href="ho.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#">Services ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="photo.html">Wedding Photography & Videography</a></li>
+                        <li><a href="co.html">Corporate Event Management</a></li>
+                        <li><a href="catering.html">Catering Service</a></li>
+                        <li><a href="music.html">Music & Entertainment</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Gallery ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="photo.html">Images</a></li>
+                        <li><a href="#">Videos</a></li>
+                    </ul>
+                </li>
+                <li><a href="slot.html">Slot Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h2>Playing MP4 Video</h2>
+    </div>
+    
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/_8UqAZ5CwIA?si=29gA24Zqq4HC8n4x" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/hTor-Ed8e50?si=RDIiZ4u3EYYbf53Q" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/-7d-EeHA_eI?si=DBZTvylRlxQPvHWC" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/LpW4dxoW6NI?si=F1qwJU7BcpW9Y0Id" allowfullscreen></iframe>
+    </div>
+</body>
+</html>

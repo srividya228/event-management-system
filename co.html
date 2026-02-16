@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background: url('https://c8.alamy.com/comp/2BPGC2R/speaker-giving-a-talk-in-conference-hall-at-business-event-focus-on-unrecognizable-people-in-audience-business-and-entrepreneurship-concept-black-a-2BPGC2R.jpg') 
+                        no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        header {
+            background: #6a4caf;
+            padding: 22px 32px; /* Increased padding */
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 30px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 5px;
+        }
+             
+         nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px 15px;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            background: #ffcc00;
+            border-radius: 5px;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            list-style: none;
+            padding: 10px;
+            border-radius: 5px;
+            top: 100%;
+            right: 0;
+            min-width: 220px;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-menu li {
+            margin: 5px 0;
+        }
+        
+        .dropdown-menu li a {
+            font-size: 16px;
+            padding: 10px 15px;
+            display: block;
+        }
+        
+        .content {
+            margin-top: 100vh;
+            width: 100%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+        }
+        
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 5%;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 16px;
+            color: black;
+            transition: background 0.3s;
+        }
+
+        .button.active {
+            background-color: #6a4caf;
+            color: white;
+        }
+
+        .button:hover {
+            background-color: #4a2caf;
+            color: white;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .gallery img {
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SV Event Management</div>
+        <nav>
+            <ul>
+                <li><a href="nav.html">Home</a></li>
+                <li><a href="ho.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#">Services ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="photo.html">Wedding Photography & Videography</a></li>
+                        <li><a href="co.html">Corporate Event Management</a></li>
+                        <li><a href="catering.html">Catering Service</a></li>
+                        <li><a href="music.html">Music & Entertainment</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Gallery ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="photo.html">Images</a></li>
+                        <li><a href="video.html">Videos</a></li>
+    
+                    </ul>
+                </li>
+                <li><a href="slot.html">Slot Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <p>
+           
+        </p>
+
+        <div class="button-container">
+            <button class="button">Wedding Decors</button>
+            <button class="button active">Corporate Event</button>
+            <button class="button">Music & Entertainment</button>
+        </div>
+
+        <div class="gallery">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLb4H6pk3zCs-EdL1t41gOzYAs_CUivkofA&s">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-SLQcGOZZYvzBGeI3XLGk0eX8W2D2zoO98Q&s">
+            <img src="https://lovinglifeco.com/wp-content/uploads/2023/07/corporate-event.jpg">
+            <img src="https://www.effortlessevents.in/images/services/6_new.jpg"> 
+            <img src="https://sarojjainvatika.com/wp-content/uploads/2024/03/types-of-Corporate-Events.jpg">
+            <img src="https://www.hire4event.com/blogs/wp-content/uploads/2019/07/Corporate-Event-Planning.jpg">
+            <img src="https://tavitsphotography.com/wp-content/uploads/2019/10/Troon-Global-Leadership-Conference-2019-109.jpg">
+            <img src="https://zzeeh.com/wp-content/uploads/2024/09/what-is-a-professional-event-planner.jpg">
+        </div>
+    </div>
+</body>
+</html>

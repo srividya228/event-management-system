@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://img.freepik.com/free-photo/particle-lines-futuristic-gradient-background_53876-104053.jpg?semt=ais_hybrid') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #error-message {
+      color: red;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .signup-link a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Log In</h1>
+    <form id="loginForm" onsubmit="handleFormSubmit(event)" autocomplete="new-password">
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required autocomplete="new-password" />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required autocomplete="new-password" />
+
+      <button type="submit">Log in</button>
+      <p id="error-message"></p>
+    </form>
+
+    <p class="signup-link">Don't have an account? <a href="register.html">Sign up here</a></p>
+  </div>
+
+  <script>
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('error-message');
+
+      if (!email || !password) {
+        errorMessage.textContent = 'All fields are required!';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5001/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const text = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch (error) {
+          throw new Error('Invalid JSON response from server: ' + text);
+        }
+
+        if (response.ok) {
+          alert('Login successful!');
+          window.location.replace('nav.html');
+        } else {
+          errorMessage.textContent = data.error || 'Invalid credentials. Please try again.';
+        }
+      } catch (error) {
+        errorMessage.textContent = 'Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
