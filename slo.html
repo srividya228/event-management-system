@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Event Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://img.freepik.com/free-photo/optical-fiber-background_23-2149301532.jpg?semt=ais_hybrid') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+    }
+  
+    .container {
+      background-color: darkgray;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+  
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+  
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Event Booking</h1>
+    <form>
+      <label for="event">Choose an Event:</label>
+      <select id="event" name="event">
+        <option value="Marriage">Marriage</option>
+        <option value="corporate">corporate</option>
+        <option value="Catering">Catering</option>
+        <option value="Music concert">Music Concert</option>
+      </select>
+
+      <label for="date">Select Date:</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="time">Select Time Slot or Enter Your Own:</label>
+      <select id="time" name="time">
+        <option value="10am-12pm">10 AM - 12 PM</option>
+        <option value="12pm-2pm">12 PM - 2 PM</option>
+        <option value="2pm-4pm">2 PM - 4 PM</option>
+        <option value="4pm-6pm">4 PM - 6 PM</option>
+        <option value="custom">Enter Custom Time</option>
+      </select>
+
+      <input type="text" id="custom-time" name="custom-time" placeholder="Enter your preferred time (e.g., 3 PM - 5 PM)" style="display:none;" />
+
+      <button type="submit">Book Now</button>
+    </form>
+  </div>
+
+  <script>
+    const timeSelect = document.getElementById('time');
+    const customTimeInput = document.getElementById('custom-time');
+
+    timeSelect.addEventListener('change', function() {
+      if (timeSelect.value === 'custom') {
+        customTimeInput.style.display = 'block';
+        customTimeInput.required = true;
+      } else {
+        customTimeInput.style.display = 'none';
+        customTimeInput.required = false;
+      }
+    });
+  </script>
+</body>
+</html>
+

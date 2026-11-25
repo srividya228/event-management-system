@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,17 +14,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .container {
-      background-color: rgba(255, 255, 255, 0.9); /* Adding transparency to make the text readable */
+      background-color: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       width: 100%;
       max-width: 400px;
+      box-sizing: border-box;
     }
 
     h1 {
@@ -66,10 +71,16 @@
       background-color: #0056b3;
     }
 
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+
     #error-message {
       color: red;
       text-align: center;
       margin-top: 15px;
+      overflow-wrap: anywhere;
     }
 
     .login-link {
@@ -88,70 +99,116 @@
     }
   </style>
 </head>
+
 <body>
+
   <div class="container">
+
     <h1>Sign Up</h1>
-    <form id="registerForm" onsubmit="handleRegister(event)" autocomplete="new-password">
-      
-      <!-- Hidden Fake Input to Prevent Autofill -->
-      <input type="text" name="fakeuser" style="display: none;" autocomplete="off">
-      <input type="password" name="fakepassword" style="display: none;" autocomplete="off">
-      
+
+    <form id="registerForm" autocomplete="off">
+
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required autocomplete="new-password" />
+      <input
+        type="text"
+        id="name"
+        name="username"
+        required
+        autocomplete="name"
+      />
 
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required autocomplete="new-password" />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        autocomplete="email"
+      />
 
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required autocomplete="new-password" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        autocomplete="new-password"
+      />
 
-      <button type="submit">Sign Up</button>
-      <p id="error-message"></p>
+      <button type="submit" id="registerButton">
+        Sign Up
+      </button>
+
+      <p id="error-message" role="status"></p>
+
     </form>
 
-    <p class="login-link">Already have an account? <a href="log.html">Log in here</a></p>
+    <p class="login-link">
+      Already have an account?
+      <a href="log.html">Log in here</a>
+    </p>
+
   </div>
 
   <script>
+    const registerForm = document.getElementById('registerForm');
+    const errorMessage = document.getElementById('error-message');
+    const registerButton = document.getElementById('registerButton');
+
+    registerForm.addEventListener('submit', handleRegister);
+
     async function handleRegister(event) {
       event.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const errorMessage = document.getElementById('error-message');
+
+      errorMessage.textContent = '';
 
       if (!name || !email || !password) {
         errorMessage.textContent = 'All fields are required!';
         return;
       }
 
+      registerButton.disabled = true;
+      registerButton.textContent = 'Registering...';
+
       try {
-        const response = await fetch('http://localhost:5001/api/auth/register', {
+        const response = await fetch('/api/auth/register', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: name, email, password })
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: name,
+            email: email,
+            password: password
+          })
         });
 
-        const text = await response.text();
-        let data;
-
-        try {
-          data = JSON.parse(text);
-        } catch (error) {
-          throw new Error('Invalid JSON response from server: ' + text);
-        }
+        const data = await response.json();
 
         if (response.ok) {
           alert('Registration successful! Redirecting to login...');
-          window.location.replace('log.html');
+
+          window.location.href = 'log.html';
         } else {
-          errorMessage.textContent = data.error || 'Registration failed. Try again.';
+          errorMessage.textContent =
+            data.error || 'Registration failed. Try again.';
         }
+
       } catch (error) {
-        errorMessage.textContent = 'Error: ' + error.message;
+        console.error('Registration error:', error);
+
+        errorMessage.textContent =
+          'Unable to connect to the server. Please try again.';
+      } finally {
+        registerButton.disabled = false;
+        registerButton.textContent = 'Sign Up';
       }
     }
   </script>
+
 </body>
 </html>
